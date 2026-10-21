@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AssemblyName>Clipwell</AssemblyName>
+    <RootNamespace>Clipwell</RootNamespace>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <Version>0.1.0</Version>
+    <Product>Clipwell</Product>
+    <Title>Clipwell</Title>
+    <AssemblyTitle>Clipwell</AssemblyTitle>
+    <Description>Буфер обмена с историей и закреплёнными записями</Description>
+    <Company>Clipwell</Company>
+    <Copyright>Clipwell</Copyright>
+    <ApplicationIcon>Assets\clipwell.ico</ApplicationIcon>
+  </PropertyGroup>
+
+</Project>
