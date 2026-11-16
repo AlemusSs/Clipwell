@@ -1,0 +1,37 @@
+name: Update application manifest
+on:
+  release:
+    types: [published, edited]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: update-manifest
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Validate latest installer and publish manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$REPO/releases/latest" > release.json
+          tag=$(jq -r .tag_name release.json)
+          version=${tag#v}
+          [[ "$version" =~ ^0\.0\.[0-9]+$ ]]
+          id=$(jq -r '[.assets[] | select(.name == "ClipwellSetup.exe" or (.name | test("^ClipwellSetup-[0-9.]+\\.exe$")))] | if length == 1 then .[0].id else error("Expected exactly one installer") end' release.json)
+          gh api "repos/$REPO/releases/assets/$id" -H 'Accept: application/octet-stream' > ClipwellSetup.exe
+          hash=$(sha256sum ClipwellSetup.exe | cut -d ' ' -f1)
+          size=$(stat -c%s ClipwellSetup.exe)
+          expected=$(jq -r --argjson id "$id" '.assets[] | select(.id==$id) | .digest' release.json)
+          [[ "$expected" == "sha256:$hash" ]]
+          gh api -X PATCH "repos/$REPO/releases/assets/$id" -f name=ClipwellSetup.exe > /dev/null
+          date=$(jq -r '.published_at | split("T")[0]' release.json)
+          jq -n --arg v "$version" --arg d "$date" --arg repo "$REPO" --arg tag "$tag" --arg hash "$hash" --argjson size "$size" '{schemaVersion:1,version:$v,publishedAt:$d,platform:"win-x64",downloadUrl:("https://github.com/"+$repo+"/releases/download/"+$tag+"/ClipwellSetup.exe"),releaseNotesUrl:("https://github.com/"+$repo+"/releases/tag/"+$tag),sha256:$hash,size:$size}' > latest.json
+          sha=$(gh api "repos/$REPO/contents/latest.json?ref=main" --jq .sha)
+          jq -n --arg sha "$sha" --arg v "$version" --arg content "$(base64 -w0 latest.json)" '{message:("Update manifest for "+$v),branch:"main",sha:$sha,content:$content}' > request.json
+          gh api -X PUT "repos/$REPO/contents/latest.json" --input request.json > /dev/null
