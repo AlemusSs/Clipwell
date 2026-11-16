@@ -8,7 +8,7 @@ Clipwell запоминает скопированное, помогает бы�
 
 **[Скачать последнюю версию для Windows x64](https://github.com/AlemusSs/Clipwell/releases/latest/download/ClipwellSetup.exe)** · [Все выпуски](https://github.com/AlemusSs/Clipwell/releases) · [История изменений](CHANGELOG.md)
 
-Актуальная версия: **0.0.4**, опубликована **11 ноября 2026 года**.
+Актуальная версия: **0.0.5**, опубликована **16 ноября 2026 года**.
 
 ## Возможности
 
