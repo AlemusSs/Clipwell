@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "version": "0.0.5",
-  "publishedAt": "2026-11-16",
+  "version": "0.0.8",
+  "publishedAt": "2026-11-17",
   "platform": "win-x64",
-  "downloadUrl": "https://github.com/AlemusSs/Clipwell/releases/download/v0.0.5/ClipwellSetup.exe",
-  "releaseNotesUrl": "https://github.com/AlemusSs/Clipwell/releases/tag/v0.0.5",
-  "sha256": "4e80ba3a21c0a558e549ec6645eeb912d450f9843b912dc8bbfe2495a743dc0f",
-  "size": 54579041
+  "downloadUrl": "https://github.com/AlemusSs/Clipwell/releases/download/v0.0.8/ClipwellSetup.exe",
+  "releaseNotesUrl": "https://github.com/AlemusSs/Clipwell/releases/tag/v0.0.8",
+  "sha256": "f03187ad699060d782d5be508ac4861d4f0682d35f825f16fd1810c8bf75f9f7",
+  "size": 54606824
 }
